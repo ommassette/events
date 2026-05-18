@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book an Event | Karibu Events Kenya</title>
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --royal-purple: #4A154B;
+            --sunset-orange: #FF5A5F;
+            --deep-navy: #0F172A;
+            --soft-cream: #FAFAF9;
+            --footer-bg: #090D16;
+            --footer-card-bg: #111827;
+        }
+
+        /* Enforced Fixed Navbar Setup */
+        html, body {
+            overflow-x: hidden;
+        }
+
+        body {
+            padding-top: 80px !important;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--soft-cream);
+            color: var(--deep-navy);
+        }
+
+        /* Guarantees Navbar is always fixed, visible, and stacked above all elements */
+        .navbar.fixed-top {
+            position: fixed !important;
+            top: 0 !important;
+            right: 0 !important;
+            left: 0 !important;
+            z-index: 1050 !important;
+            background-color: var(--royal-purple) !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2) !important;
+        }
+
+        .navbar-brand, .nav-link {
+            color: #ffffff !important;
+            font-weight: 500;
+        }
+
+        .nav-link:hover, .navbar-brand:hover {
+            color: var(--sunset-orange) !important;
+        }
+
+        /* Custom Mobile Hamburger Icon Styling */
+        .navbar-toggler {
+            border: 2px solid var(--sunset-orange) !important;
+            padding: 6px 10px;
+            background-color: rgba(255, 90, 95, 0.1) !important;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: 0 0 0 0.25rem rgba(255, 90, 95, 0.4) !important;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23FF5A5F' stroke-width='2.5' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
+        }
+
+        /* Booking Header Banner */
+        .booking-header-banner {
+            background: linear-gradient(rgba(74, 21, 75, 0.85), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&q=80&w=1200') no-repeat center center;
+            background-size: cover;
+            padding: 80px 0;
+            color: white;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        /* Booking Form Styles */
+        .booking-card {
+            background: #ffffff;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(15, 23, 42, 0.05);
+            padding: 40px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--deep-navy);
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+
+        .form-control, .form-select {
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid #E2E8F0;
+            background-color: #F8FAFC;
+            color: var(--deep-navy);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            background-color: #FFFFFF;
+            border-color: var(--royal-purple);
+            box-shadow: 0 0 0 0.25rem rgba(74, 21, 75, 0.1);
+        }
+
+        .btn-custom {
+            background-color: var(--sunset-orange);
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #e04f53;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Contact Info Cards */
+        .contact-info-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
+        }
+
+        .contact-icon-box {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(74, 21, 75, 0.08);
+            color: var(--royal-purple);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        /* Redesigned Premium Footer with Elevated Mobile UX */
+        .modern-footer {
+            background-color: var(--footer-bg);
+            color: #94A3B8;
+            position: relative;
+        }
+
+        .footer-cta-card {
+            background: linear-gradient(135deg, var(--royal-purple) 0%, #2A082B 100%);
+            border-radius: 24px;
+            padding: 40px;
+            margin-top: -80px;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer-form-card {
+            background-color: var(--footer-card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        .footer-contact-link {
+            color: #E2E8F0;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .footer-contact-link:hover {
+            color: var(--sunset-orange);
+        }
+
+        .footer-nav-link {
+            color: #94A3B8;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .footer-nav-link:hover {
+            color: #FFFFFF;
+            padding-left: 4px;
+        }
+
+        .social-circle-btn {
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #FFFFFF;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-circle-btn:hover {
+            background-color: var(--sunset-orange);
+            color: #FFFFFF;
+            transform: translateY(-3px);
+        }
+
+        .form-input-dark {
+            background-color: rgba(255, 255, 255, 0.04) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: #FFFFFF !important;
+            padding: 12px 16px !important;
+            border-radius: 10px !important;
+        }
+
+        .form-input-dark:focus {
+            border-color: var(--sunset-orange) !important;
+            box-shadow: 0 0 0 0.25rem rgba(255, 90, 95, 0.25) !important;
+        }
+
+        .placeholder-white::placeholder {
+            color: #94A3B8 !important;
+            opacity: 1;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background-color: var(--royal-purple);
+                padding: 15px;
+                border-radius: 8px;
+                margin-top: 10px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            }
+            .booking-header-banner {
+                padding: 60px 0;
+            }
+            .booking-card {
+                padding: 25px 20px;
+            }
+            .footer-cta-card {
+                margin-top: -40px;
+                padding: 30px 20px;
+                text-align: center;
+            }
+            .footer-cta-card .btn-custom {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fixed Navbar with Hamburger Menu enforced on Viewports up to Desktop (991px) -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="index.html">Karibu<span style="color: var(--sunset-orange);">Events</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMobileContainer" aria-controls="navbarMobileContainer" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMobileContainer">
+                <ul class="navbar-nav ms-auto text-center py-2 py-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="index.html#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#about">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="services.html#pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Booking Header Banner -->
+    <div class="booking-header-banner">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">Book Your Next Event</h1>
+            <p class="lead max-width-600 mx-auto text-white-50">Tell us about your event parameters and lock down your timeline with our Nairobi planners.</p>
+        </div>
+    </div>
+
+    <!-- Contact & Booking Form Section -->
+    <section class="py-5 mb-5">
+        <div class="container">
+            <div class="row g-5">
+                
+                <!-- Left Side: Interactive Booking Form -->
+                <div class="col-lg-8">
+                    <div class="booking-card">
+                        <h3 class="fw-bold mb-4" style="color: var(--royal-purple);">Event Consultation Inquiry</h3>
+                        <form>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" placeholder="John Doe" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" placeholder="john@example.com" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" placeholder="+254 700 000 000" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Select Service Required</label>
+                                    <select class="form-select" required>
+                                        <option value="" selected disabled>Choose an operation...</option>
+                                        <option value="corporate">Corporate Galas & Summits</option>
+                                        <option value="wedding">Vibrant Traditional & Modern Weddings</option>
+                                        <option value="catering">Premium Gourmet Catering</option>
+                                        <option value="decor">Decor & Concept Design Only</option>
+                                        <option value="sound">Sound & Entertainment Integration</option>
+                                        <option value="private">Bespoke Private Celebrations</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Estimated Guest Count</label>
+                                    <input type="number" class="form-control" placeholder="e.g. 150" min="10" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Target Event Date</label>
+                                    <input type="date" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Message / Specific Logistics Details</label>
+                                    <textarea class="form-control" rows="5" placeholder="Share any specific timeline milestones, style considerations, or venue notes..." required></textarea>
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="btn btn-custom w-100">Send Booking Request</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Right Side: Direct Contact Details & Context -->
+                <div class="col-lg-4 d-flex flex-column gap-4">
+                    
+                    <div class="contact-info-card p-4 border border-light">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="contact-icon-box"><i class="bi bi-geo-alt"></i></div>
+                            <h5 class="fw-bold mb-0" style="color: var(--royal-purple);">Headquarters</h5>
+                        </div>
+                        <p class="text-secondary mb-0 small">4th Floor, Westlands Business Park, Nairobi, Kenya</p>
+                    </div>
+
+                    <div class="contact-info-card p-4 border border-light">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="contact-icon-box"><i class="bi bi-telephone"></i></div>
+                            <h5 class="fw-bold mb-0" style="color: var(--royal-purple);">Phone Channels</h5>
+                        </div>
+                        <p class="text-secondary mb-1 small">+254 700 000 000</p>
+                        <p class="text-secondary mb-0 small">+254 711 111 111</p>
+                    </div>
+
+                    <div class="contact-info-card p-4 border border-light">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="contact-icon-box"><i class="bi bi-envelope"></i></div>
+                            <h5 class="fw-bold mb-0" style="color: var(--royal-purple);">Digital Operations</h5>
+                        </div>
+                        <p class="text-secondary mb-0 small"><a href="mailto:info@karibuevents.co.ke" class="text-decoration-none text-secondary">info@karibuevents.co.ke</a></p>
+                    </div>
+
+                    <div class="contact-info-card p-4 border border-light">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="contact-icon-box"><i class="bi bi-clock"></i></div>
+                            <h5 class="fw-bold mb-0" style="color: var(--royal-purple);">Operational Hours</h5>
+                        </div>
+                        <p class="text-secondary mb-0 small">Mon - Sat: 8:00 AM - 6:00 PM<br>Closed on Sundays</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Entirely Redesigned Modern, Mobile-Responsive Footer -->
+    <footer id="contact" class="modern-footer mt-5 pt-5">
+        <!-- Top Overlay Banner for Mobile and Desktop Engagement -->
+        <div class="container mb-5">
+            <div class="footer-cta-card text-white">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-8 text-center text-lg-start">
+                        <h3 class="fw-bold mb-2">Ready to Plan an Unforgettable Event?</h3>
+                        <p class="mb-0 text-white-50">Let's coordinate your logistics and create a beautiful celebration anywhere across Kenya.</p>
+                    </div>
+                    <div class="col-lg-4 text-center text-lg-end">
+                        <a href="tel:+254700000000" class="btn btn-custom px-4 py-3"><i class="bi bi-telephone-outbound me-2"></i> Call Our Planners</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Footer Links Grid Layout -->
+        <div class="container pb-5">
+            <div class="row g-4 g-lg-5">
+                <!-- Column 1: Brand & Identity -->
+                <div class="col-lg-4 text-center text-sm-start">
+                    <a class="navbar-brand fw-bold fs-3 text-white d-block mb-3" href="#">Karibu<span style="color: var(--sunset-orange);">Events</span></a>
+                    <p class="mb-4 text-secondary">Crafting pristine corporate and private events uniquely synchronized to client timelines and luxury local styles across East Africa.</p>
+                    <div class="d-flex gap-3 justify-content-center justify-content-sm-start">
+                        <a href="#" class="social-circle-btn" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-circle-btn" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-circle-btn" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Operations Navigation -->
+                <div class="col-sm-6 col-lg-2 text-center text-sm-start">
+                    <h5 class="text-white fw-bold mb-3">Quick Links</h5>
+                    <ul class="list-unstyled d-flex flex-column gap-2">
+                        <li><a href="index.html#home" class="footer-nav-link">Home Base</a></li>
+                        <li><a href="index.html#about" class="footer-nav-link">About Identity</a></li>
+                        <li><a href="services.html" class="footer-nav-link">Our Packages</a></li>
+                        <li><a href="services.html#pricing" class="footer-nav-link">Pricing Strategy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Complete Contact Specifics -->
+                <div class="col-sm-6 col-lg-3 text-center text-sm-start">
+                    <h5 class="text-white fw-bold mb-3">Contact Details</h5>
+                    <div class="d-flex flex-column gap-3">
+                        <div class="d-flex align-items-start justify-content-center justify-content-sm-start gap-2">
+                            <i class="bi bi-geo-alt text-danger fs-5 mt-1"></i>
+                            <span class="small text-secondary">4th Floor, Westlands Business Park, Nairobi, Kenya</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center justify-content-sm-start gap-2">
+                            <i class="bi bi-envelope text-warning fs-5"></i>
+                            <a href="mailto:info@karibuevents.co.ke" class="footer-contact-link small">info@karibuevents.co.ke</a>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center justify-content-sm-start gap-2">
+                            <i class="bi bi-clock text-info fs-5"></i>
+                            <span class="small text-secondary">Mon - Sat: 8:00 AM - 6:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 4: Quick Dynamic Contact Form Card -->
+                <div class="col-lg-3">
+                    <div class="footer-form-card">
+                        <h6 class="text-white fw-bold mb-3">Instant Consultation</h6>
+                        <form>
+                            <div class="mb-2">
+                                <input type="email" class="form-control form-input-dark placeholder-white small" placeholder="Your Corporate Email" required>
+                            </div>
+                            <div class="mb-2">
+                                <textarea class="form-control form-input-dark placeholder-white small" rows="2" placeholder="Event Concept details..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-custom w-100 py-2 fs-6">Submit Inquiry</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Semantic Copyright Base Layer -->
+        <div class="border-top border-secondary border-opacity-10 py-3 text-center">
+            <div class="container">
+                <p class="mb-0 small text-muted">&copy; 2026 Karibu Events Kenya. All Rights Reserved. Engineered for maximum fluid mobile layouts.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3 JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
